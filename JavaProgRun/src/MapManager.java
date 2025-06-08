@@ -1,6 +1,6 @@
 public class MapManager {
     public static Tile[][] loadSampleMap() {
-        int rows = 5, cols = 5;
+        int rows = 5, cols = 5; // i believe this change the map, could be expanded upon.
         Tile[][] map = new Tile[rows][cols];
 
         for (int i = 0; i < rows; i++) {
