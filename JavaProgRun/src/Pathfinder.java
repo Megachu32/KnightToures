@@ -1,11 +1,12 @@
 public class Pathfinder {
     static boolean[][] visited;
 
+    // knight movement need to be dynamic
     static int[][] knightMoves = {
         {2, 1}, {1, 2}, {-1, 2}, {-2, 1},
         {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
     };
-
+    // to check and visualize the pathfinding of plauer? need to be able to go to the same path to actualy comoplet anyhting
     public static boolean findPathWithVisual(PlayerState player, Tile[][] map, MapPanel panel) {
         int rows = map.length;
         int cols = map[0].length;

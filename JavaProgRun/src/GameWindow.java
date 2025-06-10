@@ -1,6 +1,7 @@
 import javax.swing.*;
-
+// the main windows
 public class GameWindow {
+    // luch game for idk
     public static void launchGame() {
         Tile[][] map = MapManager.loadSampleMap();
         PlayerState player = new PlayerState(0, 0);
