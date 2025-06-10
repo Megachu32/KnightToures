@@ -50,6 +50,9 @@ public class Pathfinder {
             player.x = nextX;
             player.y = nextY;
 
+            //System.out.println("DestroyRuinGotCalled"); //the spam on console should be fine as it's only checking for the are within 3x3 of the ruins.
+            destroyAdjacentRuins(player, map);
+
             if (dfs(player, map, panel, enemies)) {
                 return true;
             }
@@ -75,6 +78,24 @@ public class Pathfinder {
     private static boolean outOfBounds(int x, int y, Tile[][] map) {
         return x < 0 || y < 0 || x >= map.length || y >= map[0].length;
     }
+
+    private static void destroyAdjacentRuins(PlayerState player, Tile[][] map) { /* Logic for Ruin Destruction */
+    int[][] directions = {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1}, // cardinal
+        {1, 1}, {-1, -1}, {1, -1}, {-1, 1} // diagonals
+    };
+
+    for (int[] dir : directions) {
+        int nx = player.x + dir[0];
+        int ny = player.y + dir[1];
+
+        if (!outOfBounds(nx, ny, map) && map[nx][ny].isRuin) {
+            map[nx][ny].isRuin = false;       // mark as destroyed
+            map[nx][ny].isBlocked = false;    // optionally unblock it
+            // You could also change tile type or trigger animation
+        }
+    }
+}
 
     
 }
