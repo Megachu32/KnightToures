@@ -50,6 +50,9 @@ public class Pathfinder {
             player.x = nextX;
             player.y = nextY;
 
+            
+            applyIceSlide(player, map, prevX, prevY); //TODO Test this
+
             //System.out.println("DestroyRuinGotCalled"); //the spam on console should be fine as it's only checking for the are within 3x3 of the ruins.
             destroyAdjacentRuins(player, map);
 
@@ -96,6 +99,22 @@ public class Pathfinder {
         }
     }
 }
+
+private static void applyIceSlide(PlayerState player, Tile[][] map, int fromX, int fromY) {
+    if (!map[player.x][player.y].isIce) return;
+
+    int dx = player.x - fromX;
+    int dy = player.y - fromY;
+
+    int slideX = player.x + dx;
+    int slideY = player.y + dy;
+
+    if (!outOfBounds(slideX, slideY, map) && !map[slideX][slideY].isBlocked) {
+        player.x = slideX;
+        player.y = slideY;
+    }
+}
+
 
     
 }
