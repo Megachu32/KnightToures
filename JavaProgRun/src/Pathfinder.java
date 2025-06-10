@@ -52,13 +52,21 @@ public class Pathfinder {
             }
         }
 
-        visited[x][y] = true;// mark current position as visited
+                visited[x][y] = true;// mark current position as visited
 
         panel.repaint(); // repaint to show current position
         sleep(1000); // delay to visualize movement
 
         for (int[] move : knightMoves) {
+            int nextX = player.x + move[0];
+            int nextY = player.y + move[1];
 
+            int prevX = player.x, prevY = player.y;
+
+            player.x = nextX;
+            player.y = nextY;
+
+            if (dfs(player, map, panel, enemies)) {
                 return true;
             }
 
@@ -66,11 +74,6 @@ public class Pathfinder {
             player.x = prevX;
             player.y = prevY;
         }
-
-        visited[x][y] = false; // backtrack
-        panel.repaint();// calling repaint to show backtracking
-        return false; // no path found
-    }
 
     // sleep method
     private static void sleep(int ms) {
