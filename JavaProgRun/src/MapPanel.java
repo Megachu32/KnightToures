@@ -1,9 +1,21 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class MapPanel extends JPanel {
     Tile[][] map;
     PlayerState player;
+    BufferedImage playerImage;
+    BufferedImage kingImage;
+    BufferedImage queenImage;
+    BufferedImage rookImage;
+    BufferedImage bishopImage;
+    BufferedImage pawnImage;
 
     public MapPanel(Tile[][] map, PlayerState player) {
         // mpa initialization
@@ -12,6 +24,26 @@ public class MapPanel extends JPanel {
         this.player = player;
         // the size of the panel
         setPreferredSize(new Dimension(500, 500)); // adjust as needed
+        setImages();
+    }
+
+    public void setImages(){
+        // Load player image
+        try {
+            playerImage = ImageIO.read(getClass().getResource("/images/knights.jpg"));
+            kingImage = ImageIO.read(getClass().getResource("/images/king.jpg"));
+            queenImage = ImageIO.read(getClass().getResource("/images/queen.jpg"));
+            rookImage = ImageIO.read(getClass().getResource("/images/rook.jpg"));
+            bishopImage = ImageIO.read(getClass().getResource("/images/bishop.jpg"));
+            pawnImage = ImageIO.read(getClass().getResource("/images/pawn.jpg"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(playerImage == null || kingImage == null || queenImage == null ||
+           rookImage == null || bishopImage == null || pawnImage == null) {
+            System.err.println("Error loading images. Please check the file paths.");
+        }
     }
 
     @Override
@@ -39,16 +71,34 @@ public class MapPanel extends JPanel {
                 g.drawRect(j * tileSize, i * tileSize, tileSize, tileSize);
 
                 // Draw enemy piece if exists
+                BufferedImage pieceImage = null;
                 if (map[i][j].enemy != null) {
                     g.setColor(Color.RED);
                     String pieceType = map[i][j].enemy.getClass().getSimpleName().substring(0, 1); // K, R, B, etc.
-                    g.drawString(pieceType, j * tileSize + tileSize / 2, i * tileSize + tileSize / 2);
+                    switch (pieceType) {
+                        case "K":
+                            pieceImage = kingImage;
+                            break;
+                        case "Q":
+                            pieceImage = queenImage;
+                            break;
+                        case "R":
+                            pieceImage = rookImage;
+                            break;
+                        case "B":
+                            pieceImage = bishopImage;
+                            break;
+                        case "P":
+                            pieceImage = pawnImage;
+                            break;
+                    }
+                    g.drawImage(pieceImage, j * tileSize, i * tileSize, tileSize, tileSize, null);
                 }
             }
         }
 
         // Draw player
-        g.setColor(Color.BLUE);
-        g.fillOval(player.y * tileSize + 25, player.x * tileSize + 25, 50, 50);
+        g.drawImage(playerImage, player.y * tileSize, player.x * tileSize, tileSize, tileSize, null);
+
     }
 }
