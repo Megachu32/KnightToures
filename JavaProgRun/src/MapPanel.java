@@ -36,6 +36,13 @@ public class MapPanel extends JPanel {
                 g.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
                 g.setColor(Color.BLACK);
                 g.drawRect(j * tileSize, i * tileSize, tileSize, tileSize);
+
+                // Draw enemy piece if exists
+                if (map[i][j].enemy != null) {
+                    g.setColor(Color.RED);
+                    String pieceType = map[i][j].enemy.getClass().getSimpleName().substring(0, 1); // K, R, B, etc.
+                    g.drawString(pieceType, j * tileSize + tileSize / 2, i * tileSize + tileSize / 2);
+                }
             }
         }
 

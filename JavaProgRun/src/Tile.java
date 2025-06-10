@@ -6,6 +6,10 @@ public class Tile {
     boolean isPortal = false;
     boolean hasKey = false;
     boolean isDoor = false;
+    boolean hasKIng = false;
+    boolean hasQueen = false;
+    boolean hasBishop = false;
+    boolean hasRook = false;
     Enemy enemy = null;
 
     

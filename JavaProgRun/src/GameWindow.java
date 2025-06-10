@@ -1,3 +1,4 @@
+import java.util.List;
 import javax.swing.*;
 // the main windows
 public class GameWindow {
@@ -10,6 +11,8 @@ public class GameWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MapPanel panel = new MapPanel(map, player);
 
+        List<Enemy> enemies = MapManager.getEnemies(map);
+
         frame.add(panel);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,7 +21,7 @@ public class GameWindow {
 
         // Start pathfinding in a separate thread to prevent UI freezing
         new Thread(() -> {
-            Pathfinder.findPathWithVisual(player, map, panel);
+            Pathfinder.findPathWithVisual(player, map, panel, enemies);
         }).start();
     }
 }

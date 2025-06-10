@@ -4,8 +4,10 @@ import java.util.Set;
 public class PlayerState {
     int x, y;
     int keysCollected = 0;
+    // saving the condition of tiles and player actions
     Set<String> flags = new HashSet<>(); // like "door1_opened", "portalA_used"
 
+    // Constructor to initialize player position
     public PlayerState(int x, int y) {
         this.x = x;
         this.y = y;
