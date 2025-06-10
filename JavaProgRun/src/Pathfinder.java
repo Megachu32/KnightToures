@@ -35,6 +35,22 @@ public class Pathfinder {
             panel.repaint();
             return true;
         }
+        if(map[x][y].isPortal == true) {
+            // if the next tile is a portal, teleport the player to the exit
+            System.out.println("Teleporting through portal at: " + x + ", " + y);
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[0].length; j++) {
+                    if (map[i][j].isPortalExit) {
+                        x = i;
+                        y = j;
+                        System.out.println("Teleporting to exit at: " + i + ", " + j);
+                        player.x = x;
+                        player.y = y;
+                        return false;
+                    }
+                }
+            }
+        }
 
         visited[x][y] = true;// mark current position as visited
 
@@ -42,15 +58,7 @@ public class Pathfinder {
         sleep(1000); // delay to visualize movement
 
         for (int[] move : knightMoves) {
-            int nextX = player.x + move[0];
-            int nextY = player.y + move[1];
 
-            int prevX = player.x, prevY = player.y;
-
-            player.x = nextX;
-            player.y = nextY;
-
-            if (dfs(player, map, panel, enemies)) {
                 return true;
             }
 

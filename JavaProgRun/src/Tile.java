@@ -4,6 +4,7 @@ public class Tile {
     boolean isRuin = false;
     boolean isIce = false;
     boolean isPortal = false;
+    boolean isPortalExit = false;
     boolean hasKey = false;
     boolean isDoor = false;
     boolean hasKIng = false;

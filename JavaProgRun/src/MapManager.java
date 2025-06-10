@@ -18,7 +18,7 @@ public class MapManager {
         // examople of changing tne tile properties
         map[0][0].isBlocked = false;
         map[4][4].isExit = true;
-        // map[2][2].enemy = new Rook(2, 2); // placing a Rook enemy at (2, 2)
+
 
         // returning the map?
         return map;
