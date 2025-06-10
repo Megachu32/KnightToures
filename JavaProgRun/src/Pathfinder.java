@@ -46,18 +46,30 @@ public class Pathfinder {
                         System.out.println("Teleporting to exit at: " + i + ", " + j);
                         player.x = x;
                         player.y = y;
-                        return false;
+                        break;
                     }
                 }
             }
         }
+        if(map[x][y].isDoor && player.keysCollected != 0){
+            System.out.println("Opening door at: " + x + ", " + y);
+        }
+        else if(map[x][y].isDoor && player.keysCollected == 0) {
+            System.out.println("Cannot open door at: " + x + ", " + y + " - no keys available");
+            return false; // cannot open door without keys
+        }
+        if(map[x][y].isKey) {
+            player.keysCollected++; // collect the key
+            System.out.println("Collected key at: " + x + ", " + y + ". Total keys: " + player.keysCollected);
+        }
 
-                visited[x][y] = true;// mark current position as visited
-
+        visited[x][y] = true;// mark current position as visited
+        
         panel.repaint(); // repaint to show current position
         sleep(1000); // delay to visualize movement
 
         for (int[] move : knightMoves) {
+            System.out.println("Current Position: (" + player.x + ", " + player.y + ")");
             int nextX = player.x + move[0];
             int nextY = player.y + move[1];
 
@@ -74,6 +86,9 @@ public class Pathfinder {
             player.x = prevX;
             player.y = prevY;
         }
+
+        return false;
+    }
 
     // sleep method
     private static void sleep(int ms) {

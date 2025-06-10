@@ -17,8 +17,11 @@ public class MapManager {
         // Sample setup
         // examople of changing tne tile properties
         map[0][0].isBlocked = false;
+        map[0][0].isKey = true; // setting a key tile
+        map[2][1].isDoor = true;
         map[4][4].isExit = true;
-
+        map[2][2].isPortal = true; // setting a portal tile
+        map[3][2].isPortalExit = true; // setting a portal exit tile
 
         // returning the map?
         return map;

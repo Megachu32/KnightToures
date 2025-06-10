@@ -28,7 +28,8 @@ public class MapPanel extends JPanel {
                 else if (map[i][j].isRuin) g.setColor(Color.RED);
                 else if (map[i][j].isIce) g.setColor(Color.CYAN);
                 else if (map[i][j].isPortal) g.setColor(Color.MAGENTA);
-                else if (map[i][j].hasKey) g.setColor(Color.YELLOW);
+                else if (map[i][j].isPortalExit) g.setColor(Color.PINK);                
+                else if (map[i][j].isKey) g.setColor(Color.YELLOW);
                 else if (map[i][j].isDoor) g.setColor(Color.ORANGE);
                 else if (map[i][j].isExit) g.setColor(Color.GREEN);
                 else g.setColor(Color.LIGHT_GRAY);
