@@ -1,16 +1,16 @@
 public class Tile {
-    boolean isBlocked = false;
-    boolean isExit = false;
-    boolean isRuin = false;
-    boolean isIce = false;
-    boolean isPortal = false;
-    boolean hasKey = false;
-    boolean isDoor = false;
-    boolean hasKIng = false;
-    boolean hasQueen = false;
-    boolean hasBishop = false;
-    boolean hasRook = false;
-    Enemy enemy = null;
+    boolean isBlocked = false; // Added
+    boolean isExit = false; // Added
+    boolean isRuin = false; // Added
+    boolean isIce = false; //  Added
+    boolean isPortal = false; // Added
+    boolean hasKey = false; // Added
+    boolean isDoor = false; // Added
+    boolean hasKIng = false; // Enemies - Added
+    boolean hasQueen = false; // Enemies - Added
+    boolean hasBishop = false; // Enemies - Added
+    boolean hasRook = false; // Enemies - Added
+    Enemy enemy = null; // Enemies - Added
 
     
 }
