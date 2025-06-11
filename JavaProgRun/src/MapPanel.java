@@ -56,8 +56,8 @@ public class MapPanel extends JPanel {
         // giving color to the tiles
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                if (map[i][j].isBlocked) g.setColor(Color.DARK_GRAY);
-                else if (map[i][j].isRuin) g.setColor(Color.RED);
+                if (map[i][j].isRuin) g.setColor(Color.RED);
+                else if (map[i][j].isBlocked) g.setColor(Color.DARK_GRAY);
                 else if (map[i][j].isIce) g.setColor(Color.CYAN);
                 else if (map[i][j].isPortal) g.setColor(Color.MAGENTA);
                 else if (map[i][j].isPortalExit) g.setColor(Color.PINK);                

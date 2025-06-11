@@ -22,6 +22,10 @@ public class MapManager {
         map[4][4].isExit = true;
         map[2][2].isPortal = true; // setting a portal tile
         map[3][2].isPortalExit = true; // setting a portal exit tile
+        map[1][1].isRuin = true;
+        map[1][1].isBlocked = true;
+        // map[2][2].enemy = new Rook(2, 2); // placing a Rook enemy at (2, 2)
+
 
         map[0][4].enemy = new King(4, 0); // placing a King enemy at (0, 4)
         // map[1][1].enemy = new Rook(1, 1); // placing a Rook enemy at (1, 1
