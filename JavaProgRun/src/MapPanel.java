@@ -64,6 +64,7 @@ public class MapPanel extends JPanel {
                 else if (map[i][j].isKey) g.setColor(Color.YELLOW);
                 else if (map[i][j].isDoor) g.setColor(Color.ORANGE);
                 else if (map[i][j].isExit) g.setColor(Color.GREEN);
+                else if (map[i][j].hasVisited) g.setColor(Color.BLACK);
                 else g.setColor(Color.LIGHT_GRAY);
 
                 g.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
@@ -96,7 +97,7 @@ public class MapPanel extends JPanel {
                 }
             }
         }
-
+        
         // Draw player
         g.drawImage(playerImage, player.y * tileSize, player.x * tileSize, tileSize, tileSize, null);
 

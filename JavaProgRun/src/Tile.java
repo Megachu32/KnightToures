@@ -12,6 +12,7 @@ public class Tile {
     boolean hasQueen = false; // Enemies - Added
     boolean hasBishop = false; // Enemies - Added
     boolean hasRook = false; // Enemies - Added
+    boolean hasVisited = false; // Enemies - Added
     Enemy enemy = null; // Enemies - Added
 
 

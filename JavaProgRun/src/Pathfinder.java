@@ -1,8 +1,10 @@
 
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 public class Pathfinder {
-    static boolean[][] visited;
+    static int prevX, prevY;
 
     // knight movement need to be dynamic
     static int[][] knightMoves = {
@@ -13,26 +15,20 @@ public class Pathfinder {
     public static boolean findPathWithVisual(PlayerState player, Tile[][] map, MapPanel panel, List<Enemy> enemies) {
         int rows = map.length;
         int cols = map[0].length;
-        visited = new boolean[rows][cols];
         return dfs(player, map, panel, enemies);
     }
-    // deep fith first search method
-    private static boolean dfs(PlayerState player, Tile[][] map, MapPanel panel,List<Enemy> enemies) {
-        int x = player.x, y = player.y;
 
-        // check if the current position is out of bounds, blocked, or already visited
-        if (outOfBounds(x, y, map) || map[x][y].isBlocked || visited[x][y]) {
+    private static boolean checkingForDfs(PlayerState player, Tile[][] map, MapPanel panel,List<Enemy> enemies){
+        int x = player.x, y = player.y;
+        if (outOfBounds(x, y, map)) {
             return false;
         }
-        for(Enemy enemy : enemies) {
-            // check if the enemy can kill the player
-            if (enemy.canKill(player, map)) {
-                return false; // player is killed by an enemy
-            }
+        if (map[x][y].isBlocked || map[x][y].hasVisited == true) {
+            System.out.println("visited at: (" + x + ", " + y + ")");
+            return false;
         }
-        // if player reaxhes the exit tile
         if (map[x][y].isExit) {
-            panel.repaint();
+            // panel.repaint();
             return true;
         }
         if(map[x][y].isPortal == true) {
@@ -62,31 +58,75 @@ public class Pathfinder {
             player.keysCollected++; // collect the key
             System.out.println("Collected key at: " + x + ", " + y + ". Total keys: " + player.keysCollected);
         }
+        for(Enemy enemy : enemies) {
+                System.out.println("it's checking");
+                // check if the enemy can kill the player
+                if (enemy.canKill(player, map)) {
+                    System.out.println("Player killed by enemy at (" + enemy.x + ", " + enemy.y + ")");
+                    
+                    player.x = prevX;
+                    player.y = prevY;
+                    sleep(1000);
+                    panel.repaint(); // request repaint
+                    panel.paintImmediately(panel.getBounds()); // 🔥 force repaint NOW
+                    
+                    sleep(1000);
+                    return false; // player is killed, cannot continue
+                }
 
-        visited[x][y] = true;// mark current position as visited
+        }
+        return true;
+    }
+    // deep fith first search method
+    private static boolean dfs(PlayerState player, Tile[][] map, MapPanel panel,List<Enemy> enemies) {
+        sleep(1000);
+        int x = player.x, y = player.y;
+
+
+        panel.repaint(); // repaint to show current position
+
+        map[x][y].hasVisited = true;// mark current position as visited
         
         panel.repaint(); // repaint to show current position
         sleep(1000); // delay to visualize movement
 
         for (int[] move : knightMoves) {
-            System.out.println("Current Position: (" + player.x + ", " + player.y + ")");
-            int prevX = player.x, prevY = player.y;
-
-            player.x += move[0];
-            player.y += move[1];
+            System.out.println("Current Position dfs: (" + player.x + ", " + player.y + ")");
+            prevX = player.x;
+            prevY = player.y;
 
             applyIceSlide(player, map, prevX, prevY);
             destroyAdjacentRuins(player, map);
 
-            if (dfs(player, map, panel, enemies)) {
-                return true;
+            if(!outOfBounds(player.x + move[0], player.y + move[1], map)) {
+                System.out.println("not out of bounds: (" + player.x + ", " + player.y + ")");
+                player.x += move[0];
+                player.y += move[1];
             }
-
-            // backtrack
-            player.x = prevX;
-            player.y = prevY;
+                panel.repaint(); // repaint to show new position
+                sleep(1000); // delay to visualize movement
+                if (checkingForDfs(player, map, panel, enemies)) {
+                    System.out.println("continue to: (" + player.x + ", " + player.y + ")");
+                    map[player.x][player.y].hasVisited = true; // mark the new position as visited
+                    if (map[player.x][player.y].isExit) {
+                        panel.repaint();
+                        return true;
+                    }
+                }
+                else{
+                    System.out.println("Backtracking from: (" + player.x + ", " + player.y + ")");
+                    System.out.println("Previous Position: (" + prevX + ", " + prevY + ")");
+                
+                    player.x = prevX;
+                    player.y = prevY;
+                    panel.repaint(); // repaint to show backtracking
+                }
         }
-
+        System.out.println("done out of moves at: (" + player.x + ", " + player.y + ")");
+        if (dfs(player, map, panel, enemies)) {
+            System.out.println("Path found to exit at: (" + player.x + ", " + player.y + ")");
+            return true;
+        }
         return false;
     }
 

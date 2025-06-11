@@ -20,6 +20,7 @@ public class Bishop extends Enemy{
             while(!outOfBounds(nx,ny ,map) && map[nx][ny].isBlocked == false) {
                 // check if the next position is within bounds and matches the player's position
                 if(nx == player.x && ny == player.y) {
+                    System.out.println("killed at : " + nx + ", " + ny);
                     return true;
                 }
                 // move in the same direction

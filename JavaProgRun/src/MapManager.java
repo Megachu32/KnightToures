@@ -3,7 +3,7 @@ import java.util.List;
 
 public class MapManager {
     public static Tile[][] loadSampleMap() {
-        int rows = 5, cols = 5; // i believe this change the map, could be expanded upon.
+        int rows = 9, cols = 9; // i believe this change the map, could be expanded upon.
         Tile[][] map = new Tile[rows][cols]; // map matrix
 
 
@@ -34,29 +34,29 @@ public class MapManager {
         // // returning the map?
 
         // Key
-        map[0][1].isKey = true;
+        // map[0][1].isKey = true;
 
         // Door
-        map[2][0].isDoor = true;
+        // map[2][0].isDoor = true;
 
         // Exit
-        map[4][4].isExit = true;
+        map[8][8].isExit = true;
 
         // Ruin
-        map[1][1].isRuin = true;
-        map[1][1].isBlocked = true; // ruins are typically blocked
+        // map[1][1].isRuin = true;
+        // map[1][1].isBlocked = true; // ruins are typically blocked
 
         // Ice tile
-        map[2][1].isIce = true;
+        // map[2][1].isIce = true;
 
         // Portal (entry)
-        map[0][3].isPortal = true;
+        map[3][3].isPortal = true;
 
         // Portal exit
-        map[3][3].isPortalExit = true;
+        map[8][8].isPortalExit = true;
 
         // Enemy
-        map[0][4].enemy = new Bishop(4, 0); // Queen enemy
+        map[8][0].enemy = new Bishop(0, 8); // Bishop enemy
 
         return map;
     }
