@@ -35,13 +35,41 @@ public class Pathfinder {
             panel.repaint();
             return true;
         }
+        if(map[x][y].isPortal == true) {
+            // if the next tile is a portal, teleport the player to the exit
+            System.out.println("Teleporting through portal at: " + x + ", " + y);
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[0].length; j++) {
+                    if (map[i][j].isPortalExit) {
+                        x = i;
+                        y = j;
+                        System.out.println("Teleporting to exit at: " + i + ", " + j);
+                        player.x = x;
+                        player.y = y;
+                        break;
+                    }
+                }
+            }
+        }
+        if(map[x][y].isDoor && player.keysCollected != 0){
+            System.out.println("Opening door at: " + x + ", " + y);
+        }
+        else if(map[x][y].isDoor && player.keysCollected == 0) {
+            System.out.println("Cannot open door at: " + x + ", " + y + " - no keys available");
+            return false; // cannot open door without keys
+        }
+        if(map[x][y].isKey) {
+            player.keysCollected++; // collect the key
+            System.out.println("Collected key at: " + x + ", " + y + ". Total keys: " + player.keysCollected);
+        }
 
         visited[x][y] = true;// mark current position as visited
-
+        
         panel.repaint(); // repaint to show current position
         sleep(1000); // delay to visualize movement
 
         for (int[] move : knightMoves) {
+            System.out.println("Current Position: (" + player.x + ", " + player.y + ")");
             int nextX = player.x + move[0];
             int nextY = player.y + move[1];
 
@@ -65,9 +93,7 @@ public class Pathfinder {
             player.y = prevY;
         }
 
-        visited[x][y] = false; // backtrack
-        panel.repaint();// calling repaint to show backtracking
-        return false; // no path found
+        return false;
     }
 
     // sleep method
