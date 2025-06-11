@@ -70,18 +70,12 @@ public class Pathfinder {
 
         for (int[] move : knightMoves) {
             System.out.println("Current Position: (" + player.x + ", " + player.y + ")");
-            int nextX = player.x + move[0];
-            int nextY = player.y + move[1];
-
             int prevX = player.x, prevY = player.y;
 
-            player.x = nextX;
-            player.y = nextY;
+            player.x += move[0];
+            player.y += move[1];
 
-            
-            applyIceSlide(player, map, prevX, prevY); //TODO Test this
-
-            //System.out.println("DestroyRuinGotCalled"); //the spam on console should be fine as it's only checking for the are within 3x3 of the ruins.
+            applyIceSlide(player, map, prevX, prevY);
             destroyAdjacentRuins(player, map);
 
             if (dfs(player, map, panel, enemies)) {
@@ -96,7 +90,7 @@ public class Pathfinder {
         return false;
     }
 
-    // sleep method
+    // sleep method 
     private static void sleep(int ms) {
         try {
             Thread.sleep(ms);
@@ -127,6 +121,8 @@ public class Pathfinder {
 }
 
 private static void applyIceSlide(PlayerState player, Tile[][] map, int fromX, int fromY) {
+     if (outOfBounds(player.x, player.y, map)) return;
+
     if (!map[player.x][player.y].isIce) return;
 
     int dx = player.x - fromX;

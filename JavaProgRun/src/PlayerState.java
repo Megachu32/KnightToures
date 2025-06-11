@@ -1,10 +1,5 @@
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 
 public class PlayerState {
     int x, y;
@@ -21,6 +16,8 @@ public class PlayerState {
     // Clone method for backtracking
     public PlayerState clone() {
         PlayerState copy = new PlayerState(this.x, this.y);
+        copy.x = this.x;
+        copy.y = this.y;
         copy.keysCollected = this.keysCollected;
         copy.flags = new HashSet<>(this.flags);
         return copy;
