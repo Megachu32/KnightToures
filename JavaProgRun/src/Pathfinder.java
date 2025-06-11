@@ -112,6 +112,7 @@ public class Pathfinder {
                         panel.repaint();
                         return true;
                     }
+                    return dfs(player, map, panel, enemies);
                 }
                 else{
                     System.out.println("Backtracking from: (" + player.x + ", " + player.y + ")");
