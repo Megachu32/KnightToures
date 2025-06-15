@@ -3,7 +3,7 @@ import java.util.List;
 
 public class MapManager {
     public static Tile[][] loadSampleMap() {
-        int rows = 9, cols = 9; // i believe this change the map, could be expanded upon.
+        int rows = 7, cols = 7; // i believe this change the map, could be expanded upon.
         Tile[][] map = new Tile[rows][cols]; // map matrix
 
 
@@ -40,7 +40,7 @@ public class MapManager {
         // map[2][0].isDoor = true;
 
         // Exit
-        map[8][8].isExit = true;
+       // map[6][6].isExit = true;
 
         // Ruin
         // map[1][1].isRuin = true;
@@ -50,13 +50,38 @@ public class MapManager {
         // map[2][1].isIce = true;
 
         // Portal (entry)
-        map[3][3].isPortal = true;
+       // map[1][3].isPortal = true;
 
         // Portal exit
-        map[8][8].isPortalExit = true;
+        //map[6][6].isPortalExit = true;
 
         // Enemy
-        map[8][0].enemy = new Bishop(0, 8); // Bishop enemy
+       // map[6][0].enemy = new Bishop(0, 8); // Bishop enemy
+
+        //map[1][2].isRuin = true;
+        //map[1][2].isBlocked = true;
+
+        //map[2][3].isIce = true;
+
+        map[4][2].isPortal = true;                   // Portal entrance
+        map[1][1].isPortalExit = true;               // Portal exit
+        map[3][2].isBlocked = true;
+        map[6][0].isRuin = true;
+        map[5][0].isIce = true;
+
+        map[2][3].isBlocked = true;
+        map[2][5].isDoor = true;
+        map[0][3].isKey = true;
+
+        map[2][4].isBlocked = true;
+        map[1][5].isBlocked = true;
+        
+
+
+        //map[4][2].isDoor = true;
+        //map[4][1].isKey = true;
+
+        map[6][6].isExit = true; 
 
         return map;
     }
